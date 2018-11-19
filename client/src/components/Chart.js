@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import {Line} from 'react-chartjs-2';
+import Charts from 'chart.js';
 
 
 class Chart extends Component {
     render() {
-        const data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        let data = {
+            labels: this.props.labels,
             datasets: [
               {
-                label: 'My First dataset',
+                label: 'Home Temperature',
                 fill: false,
-                lineTension: 0.1,
+                lineTension: 1,
                 backgroundColor: 'rgba(75,192,192,0.4)',
                 borderColor: 'rgba(75,192,192,1)',
                 borderCapStyle: 'butt',
@@ -26,14 +27,14 @@ class Chart extends Component {
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 pointHitRadius: 10,
-                data: [65, 59, 80, 81, 56, 55, 40]
+                data: [this.props.data]
               }
             ]
           };
         return (
             <div>
             <Line
-            data={data}
+            data = {{data}}
             options = {{maintainAspectRatio: false}}
             height = {300}
             />

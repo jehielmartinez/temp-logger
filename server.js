@@ -26,7 +26,7 @@ io.on('connection', (socket) => {
             console.log(res);
         })
     }).catch((err) => {
-        console.error('Base de Datos ya existe', err);
+        console.error('ERROR', err);
     });
 
     app.post('/log', (req, res) => {
@@ -47,6 +47,9 @@ io.on('connection', (socket) => {
             })
         })
     })
+
+
+
 })
 
 
