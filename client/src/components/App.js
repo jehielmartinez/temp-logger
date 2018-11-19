@@ -3,6 +3,8 @@ import Header from "./Header";
 import socketIOClient from "socket.io-client";
 import LiveChart from "./LiveChart";
 import moment from "moment";
+import Chart from "./Chart";
+import Form from "./Form";
 
 class App extends Component {
   state = {
@@ -43,13 +45,18 @@ class App extends Component {
     return (
       <div>
         <Header title="TEMPERATURE MONITOR" />
-        <div className="container">
+        <div className="m-3">
           <div className="row">
             <div className="col sm">
             <LiveChart
             data = {this.state.data}
             labels = {this.state.labels}
             />
+            </div>
+            <div className="col sm">
+            <Chart
+            />
+            <Form/>
             </div>
           </div>
         </div>

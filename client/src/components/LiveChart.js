@@ -15,7 +15,7 @@ class LiveChart extends Component {
         labels: this.props.labels,
         datasets: [
           {
-            label: 'Home Temperature',
+            label: 'Live Home Temperature',
             fill: false,
             lineTension: 0.1,
             backgroundColor: 'rgba(75,192,192,0.4)',
