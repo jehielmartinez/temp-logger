@@ -3,13 +3,6 @@ import {Line} from 'react-chartjs-2';
 
 class LiveChart extends Component {
 
-    //   componentDidUpdate(prevProps, prevState) {
-    //       if (prevProps.labels !== this.props.labels){
-    //         this.data.labels = this.props.labels;
-    //         this.data.datasets.data = this.props.data
-    //     }
-    //   }
-
   render() {
     let data = {
         labels: this.props.labels,

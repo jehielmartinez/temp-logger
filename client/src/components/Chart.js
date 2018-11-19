@@ -29,6 +29,7 @@ class Chart extends Component {
               }
             ]
           };
+          
         return (
             <Line
         data = {data}

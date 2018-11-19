@@ -48,6 +48,23 @@ io.on('connection', (socket) => {
         })
     })
 
+    app.get('/send', (req, res) => {
+        data = [req.query.from, req.query.to];
+        pool.connect()
+        .then((client) => {
+            return client.query(
+                'SELECT * FROM log WHERE created_on >= $1 AND created_on <= $2',
+                data)
+                .then((response)=>{
+                    client.release();
+                    res.status(200).json(response)
+                })
+            .catch((err)=>{
+                console.log(err);
+            })
+        })
+    })
+
 
 
 })

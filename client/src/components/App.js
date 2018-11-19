@@ -11,7 +11,8 @@ class App extends Component {
     endpoint: `${window.location.hostname}:4000`,
     labels: [],
     data: [],
-    log: {}
+    log: {},
+    queryData: {}
   };
 
   socket = socketIOClient(this.state.endpoint);
@@ -37,6 +38,25 @@ class App extends Component {
     }
   }
 
+  getDataFromDates = (dates) => {
+    let formatDates = {
+      from: moment(dates.from).valueOf(),
+      to: moment(dates.to).valueOf()
+    }
+
+    const url = `${this.state.endpoint}/send?from=${formatDates.from}&to=${formatDates.to}`
+
+    fetch(url, {method: 'GET'})
+    .then((res) => {
+      this.this.setState({queryData: res})
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+
+    console.log(this.state.queryData);
+  }
+
   render() {
     this.socket.on("newLog", log => {
       this.setState({ log: log });
@@ -56,7 +76,9 @@ class App extends Component {
             <div className="col sm">
             <Chart
             />
-            <Form/>
+            <Form
+            getDataFromDates = {this.getDataFromDates}
+            />
             </div>
           </div>
         </div>
