@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Header from "./Header";
-import Chart from "./Chart";
 import socketIOClient from "socket.io-client";
+import LiveChart from "./LiveChart";
+import moment from "moment";
 
 class App extends Component {
   state = {
@@ -16,15 +17,15 @@ class App extends Component {
   updateData = log => {
     const { created_on, metric } = log;
 
-    let labels = this.state.labels;
     let data = this.state.data;
+    let labels = this.state.labels;
 
-    labels.push(Number(created_on));
+    labels.push(moment(Number(created_on)).format('DD-MM-YY HH:mm'));
     data.push(Number(metric));
 
     this.setState({
-      labels: labels,
-      data: data
+      data: data,
+      labels: labels
     });
   };
 
@@ -44,9 +45,11 @@ class App extends Component {
         <Header title="TEMPERATURE MONITOR" />
         <div className="container">
           <div className="row">
-            <div className="col sm">Hello!</div>
             <div className="col sm">
-              <Chart labels={this.state.labels} data={this.state.data}/>
+            <LiveChart
+            data = {this.state.data}
+            labels = {this.state.labels}
+            />
             </div>
           </div>
         </div>
