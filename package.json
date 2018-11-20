@@ -2,12 +2,14 @@
   "name": "rpi-logger",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "client": "npm start --prefix client",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Jehiel Martinez",
   "license": "ISC",

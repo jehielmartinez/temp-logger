@@ -3,11 +3,12 @@ const bodyParser = require('body-parser');
 const socketIO = require('socket.io');
 const http = require('http');
 const cors = require('cors');
+const path = require('path');
 
 const pg = require('pg');
 
 const connectionString = process.env.DATABASE_URI || 'postgresql://postgres:josue2415@localhost:5432/templog';
-const pool = new pg.Pool({ connectionString });
+const pool = new pg.Pool({connectionString});
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -68,11 +69,14 @@ io.on('connection', (socket) => {
         })
     })
 
-
-
 })
 
-
-
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+  
+    app.get('*', (req, res) => {
+      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+  }
 
 server.listen(port, () => console.log(`listening on http://localhost:${port}`));
