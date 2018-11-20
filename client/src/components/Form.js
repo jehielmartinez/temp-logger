@@ -27,7 +27,7 @@ class Form extends Component {
                     <label className="">To: </label>
                     <input ref={this.toRef} type="date" className="form-control"/>
                 </div>
-                <button type="submit" class="btn btn-primary">Get Temp</button>
+                <button type="submit" className="btn btn-primary">Get Temp</button>
                 
             </form>
         );

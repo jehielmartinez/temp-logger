@@ -39,22 +39,26 @@ class App extends Component {
   }
 
   getDataFromDates = (dates) => {
+    console.log(dates);
     let formatDates = {
-      from: moment(dates.from).valueOf(),
-      to: moment(dates.to).valueOf()
+      from: moment(dates.from).unix(),
+      to: moment(dates.to).unix()
     }
+    console.log(formatDates);
 
-    const url = `${this.state.endpoint}/send?from=${formatDates.from}&to=${formatDates.to}`
+    const url = `http://${this.state.endpoint}/send?from=${formatDates.from}&to=${formatDates.to}`
 
     fetch(url, {method: 'GET'})
     .then((res) => {
-      this.this.setState({queryData: res})
+      return res.json();
+    })
+    .then((data)=>{
+      console.log(url);
+      console.log(data);
     })
     .catch((err) => {
       console.error(err);
     })
-
-    console.log(this.state.queryData);
   }
 
   render() {

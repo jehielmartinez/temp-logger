@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const socketIO = require('socket.io');
 const http = require('http');
+const cors = require('cors');
 
 const pg = require('pg');
 
@@ -14,7 +15,9 @@ const server = http.createServer(app);
 
 const io = socketIO(server);
 
+app.use(cors());
 app.use(bodyParser.json());
+
 
 io.on('connection', (socket) => {
     console.log('Client Connected');
@@ -57,7 +60,7 @@ io.on('connection', (socket) => {
                 data)
                 .then((response)=>{
                     client.release();
-                    res.status(200).json(response)
+                    res.status(200).json(response.rows)
                 })
             .catch((err)=>{
                 console.log(err);
