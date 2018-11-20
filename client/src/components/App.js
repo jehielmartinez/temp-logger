@@ -12,7 +12,8 @@ class App extends Component {
     labels: [],
     data: [],
     log: {},
-    queryData: {}
+    queryData: [],
+    queryLabels: []
   };
 
   socket = socketIOClient(this.state.endpoint);
@@ -53,12 +54,23 @@ class App extends Component {
       return res.json();
     })
     .then((data)=>{
-      console.log(url);
-      console.log(data);
+      this.processData(data);
     })
     .catch((err) => {
       console.error(err);
     })
+  }
+
+  processData = (data) => {
+   let queryData = [];
+   let queryLabels = [];
+
+    data.forEach(log => {
+      queryData.push(Number(log.metric));
+      queryLabels.push(moment(Number(log.created_on)).format('DD-MM-YY HH:mm'));
+    });
+
+    this.setState({queryData, queryLabels});
   }
 
   render() {
@@ -79,6 +91,8 @@ class App extends Component {
             </div>
             <div className="col sm">
             <Chart
+            data = {this.state.queryData}
+            labels = {this.state.queryLabels}
             />
             <Form
             getDataFromDates = {this.getDataFromDates}

@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import {Line} from 'react-chartjs-2';
 
 class Chart extends Component {
+
     render() {
         let data = {
-            labels: [1,2,3,4,5],
+            labels: this.props.labels,
             datasets: [
               {
                 label: 'Home Temperature Log    ',
@@ -25,11 +26,11 @@ class Chart extends Component {
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 pointHitRadius: 10,
-                data: [5,3,6,4,6]
+                data: this.props.data
               }
             ]
           };
-          
+
         return (
             <Line
         data = {data}
