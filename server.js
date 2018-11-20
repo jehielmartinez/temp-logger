@@ -7,7 +7,7 @@ const path = require('path');
 
 const pg = require('pg');
 
-const connectionString = process.env.DATABASE_URI || 'postgresql://postgres:josue2415@localhost:5432/templog';
+const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:josue2415@localhost:5432/templog';
 const pool = new pg.Pool({connectionString});
 
 const app = express();
