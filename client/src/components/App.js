@@ -46,7 +46,7 @@ class App extends Component {
       to: moment(dates.to).unix()
     };
 
-    const url = `https://${this.state.endpoint}/send?from=${formatDates.from}&to=${formatDates.to}`;
+    const url = `https://${this.state.endpoint}/api/send?from=${formatDates.from}&to=${formatDates.to}`;
 
     fetch(url, { method: "GET" })
       .then(res => {

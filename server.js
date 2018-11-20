@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
         console.error('ERROR', err);
     });
 
-    app.post('/log', (req, res) => {
+    app.post('/api/log', (req, res) => {
         data = [req.query.device, new Date().valueOf(), req.query.metric];
     
         pool.connect()
@@ -52,7 +52,7 @@ io.on('connection', (socket) => {
         })
     })
 
-    app.get('/send', (req, res) => {
+    app.get('/api/send', (req, res) => {
         data = [req.query.from, req.query.to];
         pool.connect()
         .then((client) => {
