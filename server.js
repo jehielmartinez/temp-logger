@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const socketIO = require('socket.io');
 const http = require('http');
-const cors = require('cors');
 const path = require('path');
 
 const pg = require('pg');
@@ -16,7 +15,6 @@ const server = http.createServer(app);
 
 const io = socketIO(server);
 
-// app.use(cors());
 app.use(bodyParser.json());
 
 io.on('connection', (socket) => {

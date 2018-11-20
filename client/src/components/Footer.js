@@ -6,6 +6,9 @@ const Footer = () => {
       <footer className="footer">
         <small>
           <strong>Created by Jehiel Martinez for Acklen Avenue</strong>
+        </small><br/>
+        <small>
+          November 2018
         </small>
       </footer>
     </div>
