@@ -17,7 +17,7 @@ class Form extends Component {
 
     render() {
         return (
-            <form className="form-inline" onSubmit={this.sendDates}>
+            <form className="form-inline justify-content-center" onSubmit={this.sendDates}>
     
                 <div className="form-group m-2">
                     <label className="">From: </label>

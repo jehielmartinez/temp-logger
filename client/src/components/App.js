@@ -5,6 +5,7 @@ import LiveChart from "./LiveChart";
 import moment from "moment";
 import Chart from "./Chart";
 import Form from "./Form";
+import Footer from "./Footer";
 
 class App extends Component {
   state = {
@@ -24,7 +25,7 @@ class App extends Component {
     let data = this.state.data;
     let labels = this.state.labels;
 
-    labels.push(moment(Number(created_on)).format('DD-MM-YY HH:mm'));
+    labels.push(moment(Number(created_on)).format("DD-MM-YY HH:mm"));
     data.push(Number(metric));
 
     this.setState({
@@ -39,39 +40,41 @@ class App extends Component {
     }
   }
 
-  getDataFromDates = (dates) => {
+  getDataFromDates = dates => {
     console.log(dates);
     let formatDates = {
       from: moment(dates.from).unix(),
       to: moment(dates.to).unix()
-    }
+    };
     console.log(formatDates);
 
-    const url = `http://${this.state.endpoint}/send?from=${formatDates.from}&to=${formatDates.to}`
+    const url = `http://${this.state.endpoint}/send?from=${
+      formatDates.from
+    }&to=${formatDates.to}`;
 
-    fetch(url, {method: 'GET'})
-    .then((res) => {
-      return res.json();
-    })
-    .then((data)=>{
-      this.processData(data);
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-  }
+    fetch(url, { method: "GET" })
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        this.processData(data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
 
-  processData = (data) => {
-   let queryData = [];
-   let queryLabels = [];
+  processData = data => {
+    let queryData = [];
+    let queryLabels = [];
 
     data.forEach(log => {
       queryData.push(Number(log.metric));
-      queryLabels.push(moment(Number(log.created_on)).format('DD-MM-YY HH:mm'));
+      queryLabels.push(moment(Number(log.created_on)).format("DD-MM-YY HH:mm"));
     });
 
-    this.setState({queryData, queryLabels});
-  }
+    this.setState({ queryData, queryLabels });
+  };
 
   render() {
     this.socket.on("newLog", log => {
@@ -79,27 +82,24 @@ class App extends Component {
     });
 
     return (
-      <div>
-        <Header title="TEMPERATURE MONITOR" />
+      <div className="main">
+        <Header title=" RASPBERRY PI - TEMPERATURE MONITOR" />
+
         <div className="m-3">
           <div className="row">
-            <div className="col sm">
-            <LiveChart
-            data = {this.state.data}
-            labels = {this.state.labels}
-            />
+            <div className="col-sm">
+              <LiveChart data={this.state.data} labels={this.state.labels} />
             </div>
-            <div className="col sm">
-            <Chart
-            data = {this.state.queryData}
-            labels = {this.state.queryLabels}
-            />
-            <Form
-            getDataFromDates = {this.getDataFromDates}
-            />
+            <div className="col-sm">
+              <Chart
+                data={this.state.queryData}
+                labels={this.state.queryLabels}
+              />
+              <Form getDataFromDates={this.getDataFromDates} />
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     );
   }

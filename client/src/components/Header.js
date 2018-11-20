@@ -2,11 +2,11 @@ import React from 'react';
 
 const Header = (props) => {
     return (
-        <div className = "navbar navbar-dark bg-dark justify-content-center">
-            <div className="navbar-brand">
+        <nav className = "navbar navbar-dark bg-dark justify-content-center">
+            <span className="navbar-brand">
                 {props.title}
-            </div>
-        </div>
+            </span>
+        </nav>
     );
 };
 

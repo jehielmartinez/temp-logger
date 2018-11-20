@@ -8,7 +8,7 @@ class Chart extends Component {
             labels: this.props.labels,
             datasets: [
               {
-                label: 'Home Temperature Log    ',
+                label: 'Home Temperature',
                 fill: false,
                 lineTension: 0.1,
                 backgroundColor: 'rgba(82,88,124,0.6)',
