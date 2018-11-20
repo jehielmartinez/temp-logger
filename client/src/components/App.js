@@ -8,8 +8,9 @@ import Form from "./Form";
 import Footer from "./Footer";
 
 class App extends Component {
+ 
   state = {
-    endpoint: `${window.location.hostname}`,
+    endpoint: `${window.location.hostname}:4000`,
     labels: [],
     data: [],
     log: {},
@@ -17,7 +18,7 @@ class App extends Component {
     queryLabels: []
   };
 
-  socket = socketIOClient(this.state.endpoint);
+  socket = socketIOClient(`${this.state.endpoint}`);
 
   updateData = log => {
     const { created_on, metric } = log;
@@ -46,7 +47,7 @@ class App extends Component {
       to: moment(dates.to).unix()
     };
 
-    const url = `https://${this.state.endpoint}/api/send?from=${formatDates.from}&to=${formatDates.to}`;
+    const url = `http://${this.state.endpoint}/api/send?from=${formatDates.from}&to=${formatDates.to}`;
 
     fetch(url, { method: "GET" })
       .then(res => {
