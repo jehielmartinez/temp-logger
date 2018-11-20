@@ -9,7 +9,7 @@ import Footer from "./Footer";
 
 class App extends Component {
   state = {
-    endpoint: `${window.location.hostname}:${process.env.PORT}`,
+    endpoint: `${window.location.hostname}`,
     labels: [],
     data: [],
     log: {},
@@ -41,14 +41,12 @@ class App extends Component {
   }
 
   getDataFromDates = dates => {
-    console.log(dates);
     let formatDates = {
       from: moment(dates.from).unix(),
       to: moment(dates.to).unix()
     };
-    console.log(formatDates);
 
-    const url = `${this.state.endpoint}/send?from=${formatDates.from}&to=${formatDates.to}`;
+    const url = `https://${this.state.endpoint}/send?from=${formatDates.from}&to=${formatDates.to}`;
 
     fetch(url, { method: "GET" })
       .then(res => {
