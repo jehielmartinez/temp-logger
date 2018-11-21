@@ -6,16 +6,18 @@ import moment from "moment";
 import Chart from "./Chart";
 import Form from "./Form";
 import Footer from "./Footer";
+import Error from "./Error";
 
 class App extends Component {
  
   state = {
-    endpoint: `${window.location.hostname}:4000`,
+    endpoint: `${window.location.hostname}`,
     labels: [],
     data: [],
     log: {},
     queryData: [],
-    queryLabels: []
+    queryLabels: [],
+    error: false
   };
 
   socket = socketIOClient(`${this.state.endpoint}`);
@@ -51,10 +53,15 @@ class App extends Component {
 
     fetch(url, { method: "GET" })
       .then(res => {
-        return res.json();
+        if (res.status === 200){
+          return res.json();
+        } else {
+          this.setState({error: true})
+        }
       })
       .then(data => {
         this.processData(data);
+        this.setState({error: false})
       })
       .catch(err => {
         console.error(err);
@@ -74,6 +81,13 @@ class App extends Component {
   };
 
   render() {
+    let error = this.state.error;
+    let message;
+
+    if (error) {
+       message = <Error error = "No se encontraron coincidencias"/>
+    }
+
     this.socket.on("newLog", log => {
       this.setState({ log: log });
     });
@@ -93,6 +107,7 @@ class App extends Component {
                 labels={this.state.queryLabels}
               />
               <Form getDataFromDates={this.getDataFromDates} />
+              {message}
             </div>
           </div>
         </div>
