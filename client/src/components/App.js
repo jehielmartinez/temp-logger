@@ -49,14 +49,14 @@ class App extends Component {
       to: moment(dates.to).unix()
     };
 
-    const url = `http://${this.state.endpoint}/api/send?from=${formatDates.from}&to=${formatDates.to}`;
+    const url = `https://${this.state.endpoint}/api/send?from=${formatDates.from}&to=${formatDates.to}`;
 
     fetch(url, { method: "GET" })
       .then(res => {
-        if (res.status === 200){
-          return res.json();
-        } else {
+        if (res.json().length === 0){
           this.setState({error: true})
+        } else {
+          return res.json();
         }
       })
       .then(data => {
