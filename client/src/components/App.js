@@ -53,10 +53,11 @@ class App extends Component {
 
     fetch(url, { method: "GET" })
       .then(res => {
-        if (res.json().length === 0){
+        let responseData = res.json();
+        if (responseData.length === 0){
           this.setState({error: true})
         } else {
-          return res.json();
+          return responseData;
         }
       })
       .then(data => {
