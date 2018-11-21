@@ -54,7 +54,7 @@ class App extends Component {
     fetch(url, { method: "GET" })
       .then(res => {
         let responseData = res.json();
-        if (responseData === "[]"){
+        if (responseData === []){
           this.setState({error: true})
         } else {
           return responseData;
