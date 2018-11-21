@@ -53,16 +53,15 @@ class App extends Component {
 
     fetch(url, { method: "GET" })
       .then(res => {
-        let responseData = res.json();
-        if (responseData === []){
-          this.setState({error: true})
-        } else {
-          return responseData;
-        }
+          return res.json();
       })
       .then(data => {
-        this.processData(data);
-        this.setState({error: false})
+        if (data.length === 0){
+          this.setState({error: true})
+        }else{
+          this.processData(data);
+          this.setState({error: false})
+        }
       })
       .catch(err => {
         console.error(err);
